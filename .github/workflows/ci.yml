@@ -18,10 +18,18 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-#    - name: Build with Gradle
-#      uses: gradle/gradle-build-action@937999e9cc2425eddc7fd62d1053baf041147db7
-#      with:
-#        arguments: build
+    - name: Build with Gradle
+      uses: gradle jib
+      with:
+        arguments: build
 
-    - name: Build Docker
-      run: mvn compile jib:build -Djib.to.auth.username=${{ secrets.DOCKER_HUB_USERNAME }} -Djib.to.auth.password=${{ secrets.DOCKER_HUB_PASSWORD }}
+#环境变量
+env:
+  #仓库用户
+  CONTAINER_REPO_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  #仓库密码
+  CONTAINER_REPO_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+  #mvn_deploy,mvn_install,gradle编译工具
+  BUILD_TOOL: gradle
+
+
