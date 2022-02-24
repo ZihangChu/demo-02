@@ -20,7 +20,10 @@ jobs:
         distribution: 'temurin'
 
     - name: Build with Gradle
-      run: gradle clean build
+      run: build
+
+    - name: Deploy
+      run: deploy
 
     - name: Build Docker
       run: gradle jib
