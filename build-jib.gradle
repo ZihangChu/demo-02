@@ -1,0 +1,36 @@
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+ext {
+    set('HARBOR_HOST', "hub.docker.com")
+    set('HARBOR_CONTEXT_PATH', "zihangchu")
+    set('TAG', "${System.getenv('CONTAINER_TAG') ?: 'latest'}")
+    set('JDK_IMAGE', "azul/zulu-openjdk-alpine:11")
+    set('username', System.getenv("CONTAINER_REPO_USERNAME"))
+    set('password', System.getenv("CONTAINER_REPO_PASSWORD"))
+}
+
+jib {
+    from {
+        //变量必须双引号
+        image = "${project.JDK_IMAGE}"
+    }
+    to {
+        image = "${HARBOR_HOST}/${HARBOR_CONTEXT_PATH}/${name}"
+        tags = ['latest', "${project.version}" + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")), "${TAG}"]
+        auth {
+            username = "${project.username}"
+            password = "${project.password}"
+        }
+    }
+    container {
+        creationTime = 'USE_CURRENT_TIMESTAMP'
+        jvmFlags = ['-Duser.timezone=Asia/Shanghai']
+    }
+    allowInsecureRegistries = true
+}
