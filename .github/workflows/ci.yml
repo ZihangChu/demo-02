@@ -19,9 +19,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - name: Build with Gradle
-      uses: gradle jib
-      with:
-        arguments: build
+      run: gradle jib
 
 #环境变量
 env:
