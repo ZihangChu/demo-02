@@ -7,9 +7,6 @@ java {
 }
 
 ext {
-    set('HARBOR_HOST', "hub.docker.com")
-    set('HARBOR_CONTEXT_PATH', "zihangchu")
-    set('TAG', "${System.getenv('CONTAINER_TAG') ?: 'latest'}")
     set('JDK_IMAGE', "azul/zulu-openjdk-alpine:11")
     set('username', System.getenv("CONTAINER_REPO_USERNAME"))
     set('password', System.getenv("CONTAINER_REPO_PASSWORD"))
@@ -21,8 +18,7 @@ jib {
         image = "${project.JDK_IMAGE}"
     }
     to {
-        image = "${HARBOR_HOST}/${HARBOR_CONTEXT_PATH}/${name}"
-        tags = ['latest', "${project.version}" + "-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmm")), "${TAG}"]
+        image = "zihangchu/demo-02:latest"
         auth {
             username = "${project.username}"
             password = "${project.password}"
