@@ -19,12 +19,6 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
 
-    - name: Build with Gradle
-      run: build
-
-    - name: Deploy
-      run: deploy
-
     - name: Build Docker
       run: gradle jib
 
