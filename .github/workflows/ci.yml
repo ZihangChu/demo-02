@@ -20,7 +20,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Build with Gradle
-      run: gradle jib:build
+      run: gradle jib
 
 #环境变量
 env:
