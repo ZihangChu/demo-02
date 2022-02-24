@@ -18,7 +18,7 @@ jib {
         image = "${project.JDK_IMAGE}"
     }
     to {
-        image = "zihangchu/demo-02:latest"
+        image = "hub.docker.com/zihangchu/demo-02:latest"
         auth {
             username = "${project.username}"
             password = "${project.password}"
